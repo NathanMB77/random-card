@@ -6,151 +6,68 @@ import "./assets/img/rigo-baby.jpg";
 import "./assets/img/4geeks.ico";
 
 window.onload = function() {
-  //write your code here
-  const RandomExcuse = () => {
-    let who = [
-      "My dog",
-      "My mom",
-      "My son",
-      "My cactus",
-      "My cat",
-      "My goldfish",
-      "My grandma",
-      "A ghost friend",
-      "A frog",
-      "I"
-    ];
-    let action = [
-      "ate",
-      "smashed",
-      "passed away.",
-      "be having a kid.",
-      "obliterated",
-      "burned",
-      "destroyed",
-      "stole",
-      "lost",
-      "deleted",
-      "forgot",
-      "dissolved",
-      "evaporated",
-      "melted",
-      "froze",
-      "drowned",
-      "buried",
-      "hid",
-      "misplaced"
-    ];
-    let what = [
-      "my homework",
-      "my car",
-      "my documents",
-      "my dad",
-      "my keys",
-      "my phone",
-      "my computer",
-      "my shoes",
-      "my money",
-      "my wallet",
-      "my passport",
-      "my ID",
-      "my credit card",
-      "my glasses",
-      "my watch",
-      "my bike",
-      "my skateboard",
-      "my surfboard",
-      "my snowboard",
-      "my skis",
-      "my camera",
-      "my headphones",
-      "my earphones",
-      "my speakers",
-      "my microphone",
-      "my guitar",
-      "my piano",
-      "my violin",
-      "my drums",
-      "my saxophone",
-      "my trumpet",
-      "my trombone",
-      "my clarinet",
-      "my flute",
-      "my harmonica",
-      "my accordion",
-      "my banjo",
-      "my ukulele",
-      "my mandolin",
-      "my harmonium",
-      "my cello",
-      "my bass",
-      "my double bass",
-      "my tuba",
-      "my sousaphone",
-      "my trumpet",
-      "my french horn",
-      "my oboe",
-      "my bassoon",
-      "my piccolo",
-      "my recorder",
-      "my maracas",
-      "my tambourine",
-      "my triangle",
-      "my xylophone",
-      "my marimba",
-      "my vibraphone",
-      "my glockenspiel",
-      "my timpani",
-      "my drumsticks",
-      "my mallets",
-      "my brushes",
-      "my bow",
-      "my plectrum",
-      "my capo",
-      "my strings",
-      "my reeds",
-      "my mouthpiece",
-      "my sheet music",
-      "my music stand",
-      "my metronome",
-      "my tuner",
-      "my pedal",
-      "my amplifier",
-      "my speaker",
-      "my headphones",
-      "my earplugs",
-      "my ear defenders",
-      "my ear muffs",
-      "my ear protectors",
-      "my earbuds",
-      "my earphones"
-    ];
-    let when = [
-      "yesterday.",
-      "this morning.",
-      "3 years ago.",
-      "last night.",
-      "this afternoon.",
-      "last week.",
-      "last month.",
-      "last year.",
-      "last decade.",
-      "last century.",
-      "last millennium.",
-      "last ice age."
-    ];
-    const pickRandomWord = arr => {
-      let str = arr[Math.floor(Math.random() * arr.length)];
-      return str;
+  generateCard();
+};
+
+document.getElementById("button").addEventListener("click", generateCard);
+
+window.setInterval(generateCard, 5000);
+
+function generateCard() {
+
+  const RandomCard = () => {
+    let value = ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J','Q','K'];
+    let suit = ['♠', '♣', '♥', '♦'];
+    
+    const RandomFromArray = arr => {
+      let item = arr[Math.floor(Math.random() * arr.length)];
+      return item;
     };
 
-    let excuse = pickRandomWord(who) + " " + pickRandomWord(action);
-    if (excuse[excuse.length - 1] == ".") {
-      return excuse;
-    } else {
-      excuse = excuse + " " + pickRandomWord(what) + " " + pickRandomWord(when);
-      return excuse;
-    }
+    
+    return [RandomFromArray(value), RandomFromArray(suit)];
   };
-  document.querySelector("#excuse").innerHTML = RandomExcuse();
+
+  let card = RandomCard();
+  let color = "";
+  if (card[1] == "♥" || card[1] == "♦") {
+    color = "red";
+  }
+  else {
+    color = "black";
+  }
+
+  let value = document.getElementById("value");
+  let suit1 = document.getElementById("suit1");
+  let suit2 = document.getElementById("suit2");
+
+  value.innerHTML = card[0];
+  value.style.color = color;
+
+  suit1.innerHTML = card[1];
+  suit1.style.color = color;
+
+  suit2.innerHTML = card[1];
+  suit2.style.color = color;
+
+  let height = document.getElementById("height").value;
+  if (height < 300) {
+    height = 300;
+  }
+  if (height > 900) {
+    height = 900;
+  }
+  height = height.toString() + "px";
+  let width = document.getElementById("width").value;
+  if (width < 200) {
+    width = 200;
+  }
+  if (width > 1200) {
+    width = 1200;
+  }
+  width = width.toString() + "px";
+  console.log(height);
+
+  document.getElementById("card").style.width = width;
+  document.getElementById("card").style.height = height;
 };
